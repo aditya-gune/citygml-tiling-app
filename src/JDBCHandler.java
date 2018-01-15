@@ -1,7 +1,7 @@
 import javax.xml.transform.Result;
 import java.sql.*;
 
-public class MyFirstJavaProgram {
+public class JDBCHandler {
 
     static final String DB_URL = "jdbc:postgresql://localhost:5432/delft";
 
