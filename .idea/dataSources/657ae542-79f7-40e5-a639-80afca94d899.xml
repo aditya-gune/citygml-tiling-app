@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="delft@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.7">
+    <root id="1"/>
+    <database id="2" parent="1" name="citydb">
+      <ObjectId>764847</ObjectId>
+      <Current>1</Current>
+    </database>
+    <database id="3" parent="1" name="postgres">
+      <ObjectId>12401</ObjectId>
+    </database>
+    <database id="4" parent="1" name="postgis_23_sample">
+      <ObjectId>24576</ObjectId>
+    </database>
+    <database id="5" parent="1" name="avdata">
+      <ObjectId>32768</ObjectId>
+    </database>
+    <database id="6" parent="1" name="delft">
+      <ObjectId>886229</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <database id="7" parent="1" name="ventenata">
+      <ObjectId>902613</ObjectId>
+    </database>
+    <database id="8" parent="1" name="mediachurros">
+      <ObjectId>910805</ObjectId>
+    </database>
+    <role id="9" parent="1" name="city">
+      <ObjectId>173526</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="10" parent="1" name="ckan_default">
+      <ObjectId>16393</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="11" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="12" parent="1" name="postgres">
+      <ObjectId>10</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <Replication>1</Replication>
+      <ConnectionLimit>-1</ConnectionLimit>
+      <BypassRls>1</BypassRls>
+    </role>
+    <schema id="13" parent="6" name="citydb">
+      <ObjectId>887711</ObjectId>
+      <Current>1</Current>
+    </schema>
+    <schema id="14" parent="6" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="15" parent="6" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="16" parent="6" name="public">
+      <ObjectId>2200</ObjectId>
+    </schema>
+    <schema id="17" parent="6" name="pg_temp_1">
+      <ObjectId>11848</ObjectId>
+    </schema>
+    <schema id="18" parent="6" name="pg_toast_temp_1">
+      <ObjectId>11849</ObjectId>
+    </schema>
+    <schema id="19" parent="6" name="information_schema">
+      <ObjectId>12113</ObjectId>
+    </schema>
+    <schema id="20" parent="6" name="citydb_pkg">
+      <ObjectId>889850</ObjectId>
+    </schema>
+  </database-model>
+</dataSource>
