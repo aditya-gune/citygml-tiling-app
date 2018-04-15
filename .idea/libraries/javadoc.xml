@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="javadoc">
+    <CLASSES>
+      <root url="file://D:/Program Files/3DCityDB-Importer-Exporter/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://D:/Program Files/3DCityDB-Importer-Exporter/lib" />
+    </SOURCES>
+    <jarDirectory url="file://D:/Program Files/3DCityDB-Importer-Exporter/lib" recursive="false" />
+    <jarDirectory url="file://D:/Program Files/3DCityDB-Importer-Exporter/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>
