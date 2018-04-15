@@ -1,5 +1,12 @@
 import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.*;
+import java.lang.*;
+
+class CollisionObject
+{
+    int
+}
 
 public class JDBCHandler {
 
@@ -24,11 +31,15 @@ public class JDBCHandler {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT cityobject.id, citydb.objectclass.classname,cityobject.gmlid, cityobject.envelope FROM citydb.cityobject\n" +
+            sql = "SELECT cityobject.id, citydb.objectclass.classname,cityobject.gmlid, ST_AsText(cityobject.envelope) as envelope FROM citydb.cityobject\n" +
                     "INNER JOIN citydb.objectclass ON objectclass.id = cityobject.objectclass_id\n" +
                     "WHERE objectclass_id = 26 LIMIT 10;";
 
             ResultSet rs = stmt.executeQuery(sql);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+
+            ArrayList<String> collisions = new ArrayList<>(columnCount);
 
             while(rs.next()) {
                 int id = rs.getInt("id");
