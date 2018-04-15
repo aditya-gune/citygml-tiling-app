@@ -5,7 +5,7 @@ import java.lang.*;
 
 class CollisionObject
 {
-    int
+    int x;
 }
 
 public class JDBCHandler {
