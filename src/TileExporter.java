@@ -7,11 +7,28 @@ import java.io.*;
 import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 
+class Point{
+    private double x;
+    private double y;
+
+    public Point(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getX(){return this.x;}
+    public double getY(){return this.y;}
+
+    public double DistX(Point x, )
+
+}
+
 public class TileExporter {
 
     static final String DB_URL = "jdbc:postgresql://localhost:5432/";
     static final String USER = "postgres";
     static final String PASS = "pass";
+
 
     public static void main(String []args) throws IOException {
         /*if(args.length < 2){
@@ -22,7 +39,13 @@ public class TileExporter {
         Connection conn = null;
         Statement stmt = null;
         String[] ext = getExtents(stmt,conn, "nyc");
-        
+        double[] extents = new double[4];
+
+        for(int i = 0; i < ext.length; i++){
+            extents[i] = Double.parseDouble(ext[i]);
+        }
+
+
 
     }
 
