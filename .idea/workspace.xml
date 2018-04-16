@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5761c62-3a1c-4878-8dbd-abe9ca19a7a1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/citygml-tiling-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/citygml-tiling-app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/citygml-tiling-app/JDBCHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/citygml-tiling-app/commons-lang3-3.7/apidocs/org/apache/commons/lang3/text/translate/CodePointTranslator.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/citygml-tiling-app/commons-lang3-3.7/apidocs/org/apache/commons/lang3/text/translate/EntityArrays.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/citygml-tiling-app/commons-lang3-3.7/apidocs/org/apache/commons/lang3/tuple/class-use/Pair.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/citygml-tiling-app/commons-lang3-3.7/apidocs/org/apache/commons/lang3/tuple/class-use/Triple.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/citygml-tiling-app/TileExporter.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TileExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TileExporter.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,8 +18,8 @@
       <file leaf-file-name="TileExporter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TileExporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="35" column="94" selection-start-line="35" selection-start-column="94" selection-end-line="35" selection-end-column="94" />
+            <state relative-caret-position="281">
+              <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -155,12 +149,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1523837036625</updated>
-      <workItem from="1523837040080" duration="548000" />
+      <workItem from="1523837040080" duration="2539000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="548000" />
+    <option name="totallyTimeSpent" value="2539000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -212,8 +206,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TileExporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="35" column="94" selection-start-line="35" selection-start-column="94" selection-end-line="35" selection-end-column="94" />
+        <state relative-caret-position="281">
+          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

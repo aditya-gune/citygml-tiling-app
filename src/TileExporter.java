@@ -21,13 +21,15 @@ public class TileExporter {
         }*/
         Connection conn = null;
         Statement stmt = null;
-        getExtents(stmt,conn, "nyc");
+        String[] ext = getExtents(stmt,conn, "nyc");
+        
 
     }
 
-    private static String getExtents(Statement stmt, Connection conn, String dbname) {
+    private static String[] getExtents(Statement stmt, Connection conn, String dbname) {
         String DBNAME = dbname;
-        String extents = "";
+        String extentsStr = "";
+        String[] extents = new String[4];
         try {
             //Class.forName("org.postgresql.Driver");
 
@@ -38,11 +40,31 @@ public class TileExporter {
 
             while(rs.next())
             {
-                extents = rs.getString("e");
-                System.out.println("Extents are " + extents);
+                extentsStr = rs.getString("e");
+                System.out.println("Extents are " + extentsStr);
+
             }
             stmt.close();
             conn.close();
+
+            if(extentsStr != null)
+            {
+                String[] rex = extentsStr.split(",");
+
+                String[] lowerleft = rex[0].split("\\s");
+                String[] upperright = rex[1].split("\\s");
+                for (int i = 0; i < lowerleft.length; i++){
+                    lowerleft[i] = lowerleft[i].replaceAll("[^\\d-.]", "");
+                    upperright[i]=upperright[i].replaceAll("[^\\d-.]", "");
+                }
+                System.out.println("Extents are ");
+                System.out.println(Arrays.toString(lowerleft));
+                System.out.println(Arrays.toString(upperright));
+                extents[0] = lowerleft[0];
+                extents[1] = lowerleft[1];
+                extents[2] = upperright[0];
+                extents[3] = upperright[1];
+            }
 
 
         } catch (SQLException ex) {
@@ -50,6 +72,7 @@ public class TileExporter {
             System.err.println("SQLState: " + ex.getSQLState());
             System.err.println("VendorError: " + ex.getErrorCode());
         }
+        
         return extents;
     }
 
