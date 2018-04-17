@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="javadoc" level="project" />
     <orderEntry type="library" name="commons-lang3-3.7-javadoc" level="project" />
+    <orderEntry type="library" name="3dcitydb-impexp" level="project" />
   </component>
 </module>

@@ -1,18 +1,9 @@
-import com.sun.deploy.util.ArrayUtil;
-import org.citydb.cmd.ImpExpCmd;
-import org.citydb.config.Config;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.h2.util.StringUtils;
-
-import javax.xml.transform.Result;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
-import java.io.*;
-import java.util.*;
-import org.apache.commons.lang3.ArrayUtils;
-import javax.xml.bind.*;
-
-import org.citydb.*;
-
+import java.util.Arrays;
 
 class Point{
     private double x;
@@ -35,15 +26,15 @@ public class TileExporter {
     static final String USER = "postgres";
     static final String PASS = "pass";
 
-
     public static void main(String []args) throws IOException {
         /*if(args.length < 2){
             System.out.println("Error: please call in the format");
             System.out.println("java -jar /citygml-tiling-app.jar \"path/to/gml\" \"path/to/createdb.bat\"");
             return;
         }*/
-        JAXBBuilder jb;
-        JAXBContext kmlContext, colladaContext, projectContext, guiContext;
+        int n = 2;
+        int m = n;
+
         Connection conn = null;
         Statement stmt = null;
         String[] ext = getExtents(stmt,conn, "nyc");
@@ -52,8 +43,62 @@ public class TileExporter {
         for(int i = 0; i < ext.length; i++){
             extents[i] = Double.parseDouble(ext[i]);
         }
-        Config cfg = new Config();
-        ImpExpCmd gml = new ImpExpCmd(jb, projectContext, guiContext, cfg);
+        //extents = {xmin, ymin, xmax, ymax}
+        double xmin, xmax, ymin, ymax, xw, yw, tile_xw, tile_yw, tile_xmin, tile_xmax, tile_ymin, tile_ymax;
+        xmin = extents[0];
+        ymin = extents[1];
+        xmax = extents[2];
+        ymax = extents[3];
+        xw = xmax - xmin;
+        yw = ymax - ymin;
+        tile_xw = xw/n;
+        tile_yw = yw/m;
+        System.out.println(Double.toString(xw)+"/5 = "+tile_xw);
+        System.out.println(Double.toString(yw)+"/5 = "+tile_yw);
+
+        for (int j = 0; j < m; j++){
+            for(int i = 0; i < n; i++){
+                tile_xmin = xmin + (i*tile_xw);
+                tile_xmax = tile_xmin + tile_xw;
+                tile_ymin = ymin + (j*tile_yw);
+                tile_ymax = tile_ymin + tile_yw;
+                System.out.print("("+ Double.toString(tile_xmin)+ ", "+ Double.toString(tile_ymin)+ ")");
+                System.out.println("\t("+ Double.toString(tile_xmax)+ ", "+ Double.toString(tile_ymax)+ ")");
+                createConfig(tile_xmin, tile_xmax, tile_ymin, tile_ymax, i, j);
+
+            }
+            System.out.println();
+        }
+
+
+
+    }
+
+    private static void createConfig(double tile_xmin, double tile_xmax, double tile_ymin, double tile_ymax, int i, int j) {
+        String filepath ="./src/configTemplate.xml";
+        String content = "";
+        String newfile = "./src/nyc_"+Integer.toString(i)+"_"+Integer.toString(j)+".xml";
+        try
+        {
+            content = new String ( Files.readAllBytes( Paths.get(filepath) ) );
+            content = content.replace("XMIN", Double.toString(tile_xmin));
+            content = content.replace("XMAX", Double.toString(tile_xmax));
+            content = content.replace("YMIN", Double.toString(tile_ymin));
+            content = content.replace("YMAX", Double.toString(tile_ymax));
+            PrintWriter out = new PrintWriter(newfile);
+            out.println(content);
+            out.close();
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private static void export(double xmin, double xmax, double ymin, double ymax){
 
 
     }

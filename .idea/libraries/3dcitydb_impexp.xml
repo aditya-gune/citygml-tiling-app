@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="3dcitydb-impexp">
+    <CLASSES>
+      <root url="jar://D:/Program Files/3DCityDB-Importer-Exporter/lib/3dcitydb-impexp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
