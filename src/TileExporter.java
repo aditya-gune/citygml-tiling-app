@@ -1,4 +1,7 @@
 import com.sun.deploy.util.ArrayUtil;
+import org.citydb.cmd.ImpExpCmd;
+import org.citydb.config.Config;
+import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.h2.util.StringUtils;
 
 import javax.xml.transform.Result;
@@ -6,6 +9,10 @@ import java.sql.*;
 import java.io.*;
 import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
+import javax.xml.bind.*;
+
+import org.citydb.*;
+
 
 class Point{
     private double x;
@@ -19,7 +26,6 @@ class Point{
     public double getX(){return this.x;}
     public double getY(){return this.y;}
 
-    public double DistX(Point x, )
 
 }
 
@@ -36,6 +42,8 @@ public class TileExporter {
             System.out.println("java -jar /citygml-tiling-app.jar \"path/to/gml\" \"path/to/createdb.bat\"");
             return;
         }*/
+        JAXBBuilder jb;
+        JAXBContext kmlContext, colladaContext, projectContext, guiContext;
         Connection conn = null;
         Statement stmt = null;
         String[] ext = getExtents(stmt,conn, "nyc");
@@ -44,7 +52,8 @@ public class TileExporter {
         for(int i = 0; i < ext.length; i++){
             extents[i] = Double.parseDouble(ext[i]);
         }
-
+        Config cfg = new Config();
+        ImpExpCmd gml = new ImpExpCmd(jb, projectContext, guiContext, cfg);
 
 
     }
