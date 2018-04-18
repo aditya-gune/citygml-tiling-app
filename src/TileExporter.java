@@ -92,8 +92,8 @@ public class TileExporter {
         }
         for(Map.Entry<String, String> e : xmldict.entrySet())
         {
-            String k = dbname + "_" + e.getKey().replace(",","_");
-            export(k, xmlpath, citydbpath, outputpath);
+            String k = e.getKey();
+            export(k, e.getValue(), citydbpath, outputpath);
 
         }
 
