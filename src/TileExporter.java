@@ -31,15 +31,17 @@ public class TileExporter {
     static final String PASS = "pass";
 
     public static void main(String []args) throws IOException {
-        /*if(args.length < 2){
+        if(args.length < 4){
             System.out.println("Error: please call in the format");
-            System.out.println("java -jar /citygml-tiling-app.jar \"path/to/gml\" \"path/to/createdb.bat\"");
+            System.out.println("java -jar /citygml-tiling-app.jar dbname \"path/to/citydb.jar\" \"path/to/config.xml\" \"path/to/*.gml\"");
             return;
-        }*/
-        String dbname = "nyc";
-        String citydbpath = "D:\\Program Files\\3DCityDB-Importer-Exporter\\lib\\";
-        String outputpath = "D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\gml";
-        String xmlpath = "D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\xml";
+
+        }
+        String dbname = args[0];        //"nyc";
+        String citydbpath = args[1];    //"D:\\Program Files\\3DCityDB-Importer-Exporter\\lib\\";
+        String xmlpath = args[2];       //"D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\xml";
+        String outputpath = args[3];    //"D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\gml";
+
         int n = 2;
         int m = n;
         Map<String, String> tiledict = new HashMap<String, String>();
@@ -75,7 +77,7 @@ public class TileExporter {
                 System.out.print("("+ Double.toString(tile_xmin)+ ", "+ Double.toString(tile_ymin)+ ")");
                 System.out.println("\t("+ Double.toString(tile_xmax)+ ", "+ Double.toString(tile_ymax)+ ")");
 
-                xmldict = createConfig(tile_xmin, tile_xmax, tile_ymin, tile_ymax, i, j, xmlpath, xmldict);
+                xmldict = createConfig(tile_xmin, tile_xmax, tile_ymin, tile_ymax, i, j, dbname, xmlpath, xmldict);
 
                 String is = Integer.toString(i);
                 String js = Integer.toString(j);
@@ -100,10 +102,10 @@ public class TileExporter {
 
     }
 
-    private static Map<String,String> createConfig(double tile_xmin, double tile_xmax, double tile_ymin, double tile_ymax, int i, int j, String xmlpath, Map<String, String> xmldict) {
+    private static Map<String,String> createConfig(double tile_xmin, double tile_xmax, double tile_ymin, double tile_ymax, int i, int j, String dbname, String xmlpath, Map<String, String> xmldict) {
         String filepath ="./src/configTemplate.xml";
         String content = "";
-        String key = "nyc_"+Integer.toString(i)+"_"+Integer.toString(j);
+        String key = dbname+"_"+Integer.toString(i)+"_"+Integer.toString(j);
         String newfile = key+".xml";
         String newpath = xmlpath + "\\" + newfile;
         try
