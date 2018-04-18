@@ -1,0 +1,34 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="citygml-tiling-app:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/citygml_tiling_app_jar</output-path>
+    <properties id="ant-preprocessing">
+      <options enabled="true" />
+    </properties>
+    <root id="archive" name="citygml-tiling-app.jar">
+      <element id="module-output" name="citygml-tiling-app" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/commons-lang3-3.7/commons-lang3-3.7-tests.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/commons-lang3-3.7/commons-lang3-3.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/3dcitydb-impexp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/jsonobject/java-json.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/xsom.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/ojdbc7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/sdoapi.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/j3dcore.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/vecmath.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/j3dutils.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/swingx-ws.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/h2-1.4.196.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/args4j-2.33.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/tomcat-jdbc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/tomcat-juli.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/citygml4j-2.4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/jts-core-1.14.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/relaxngDatatype.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/kml-collada-jaxb.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/swingx-all-1.6.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/postgresql-42.1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/postgis-jdbc-2.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Program Files/3DCityDB-Importer-Exporter/lib/texture-atlas-creator-1.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

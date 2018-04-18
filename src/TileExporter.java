@@ -1,60 +1,79 @@
 import java.io.File;
+import java.nio.file.*;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
-//import org.json.*;
+import org.json.*;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
-
-class Point{
-    private double x;
-    private double y;
-
-    public Point(double x, double y){
-        this.x = x;
-        this.y = y;
-    }
-
-    public double getX(){return this.x;}
-    public double getY(){return this.y;}
-
-
-}
 
 public class TileExporter {
 
     static final String DB_URL = "jdbc:postgresql://localhost:5432/";
     static final String USER = "postgres";
     static final String PASS = "pass";
+    static String DBNAME = "";
+    static int N = 0;
+    static int M = 0;
+    static String CITYDBPATH = "";
+    static String XMLPATH = "";
+    static String OUTPUTPATH = "";
 
     public static void main(String []args) throws IOException {
-        if(args.length < 4){
+        if(args.length < 5){
             System.out.println("Error: please call in the format");
-            System.out.println("java -jar /citygml-tiling-app.jar dbname \"path/to/citydb.jar\" \"path/to/config.xml\" \"path/to/*.gml\"");
+            System.out.println("java -jar /citygml-tiling-app.jar DBNAME n m \"path/to/citydb.jar\" \"path/to/*.gml\"");
+            for(int i =0; i < args.length; i++){
+                System.out.println(Integer.toString(i)+": "+args[i]);
+            }
             return;
 
         }
-        String dbname = args[0];        //"nyc";
-        String citydbpath = args[1];    //"D:\\Program Files\\3DCityDB-Importer-Exporter\\lib\\";
-        String xmlpath = args[2];       //"D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\xml";
-        String outputpath = args[3];    //"D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\gml";
 
-        int n = 2;
-        int m = n;
-        Map<String, String> tiledict = new HashMap<String, String>();
+        DBNAME = args[0];            //"nyc";
+        N = Integer.parseInt(args[1]);  //2
+        M = Integer.parseInt(args[2]);  //n
+        CITYDBPATH = args[3];        //"D:\\Program Files\\3DCityDB-Importer-Exporter\\lib\\";
+        OUTPUTPATH = args[4];           //"D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\xml";
+        XMLPATH = args[4]+"\\xml";        //"D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\gml";
+
+        JSONObject tiledict = new JSONObject();
         Map<String, String> xmldict = new HashMap<String, String>();
         Connection conn = null;
         Statement stmt = null;
-        String[] ext = getExtents(stmt,conn, dbname);
         double[] extents = new double[4];
+        String jsonfile = OUTPUTPATH+"\\tiledict.json";
+
+        String[] ext = getExtents(stmt,conn);
+
 
         for(int i = 0; i < ext.length; i++){
+            System.out.println(ext);
             extents[i] = Double.parseDouble(ext[i]);
         }
+
         //extents = {xmin, ymin, xmax, ymax}
+        tiledict = calculateTiling(extents, tiledict, xmldict);
+
+
+        try(FileWriter file = new FileWriter(jsonfile)){
+            file.write(tiledict.toString());
+            System.out.println("Wrote tile dictionary to: " + jsonfile);
+        }
+        for(Map.Entry<String, String> e : xmldict.entrySet())
+        {
+            String k = e.getKey();
+            export(k, e.getValue());
+
+        }
+
+    }
+
+    private static JSONObject calculateTiling(double[] extents, JSONObject tiledict, Map<String,String> xmldict) {
         double xmin, xmax, ymin, ymax, xw, yw, tile_xw, tile_yw, tile_xmin, tile_xmax, tile_ymin, tile_ymax;
         xmin = extents[0];
         ymin = extents[1];
@@ -62,56 +81,57 @@ public class TileExporter {
         ymax = extents[3];
         xw = xmax - xmin;
         yw = ymax - ymin;
-        tile_xw = xw/n;
-        tile_yw = yw/m;
-        System.out.println(Double.toString(xw)+"/5 = "+tile_xw);
-        System.out.println(Double.toString(yw)+"/5 = "+tile_yw);
+        tile_xw = xw/N;
+        tile_yw = yw/M;
 
-        for (int j = 0; j < m; j++){
-            for(int i = 0; i < n; i++){
-                tile_xmin = xmin + (i*tile_xw);
-                tile_xmax = tile_xmin + tile_xw;
-                tile_ymin = ymin + (j*tile_yw);
-                tile_ymax = tile_ymin + tile_yw;
+        try {
+            //tiledict.put("key_x, key_y", "tile_xmin, tile_ymin, tile_xmax, tile_ymax");
 
-                System.out.print("("+ Double.toString(tile_xmin)+ ", "+ Double.toString(tile_ymin)+ ")");
-                System.out.println("\t("+ Double.toString(tile_xmax)+ ", "+ Double.toString(tile_ymax)+ ")");
+            for (int j = 0; j < M; j++) {
+                for (int i = 0; i < N; i++) {
+                    tile_xmin = xmin + (i * tile_xw);
+                    tile_xmax = tile_xmin + tile_xw;
+                    tile_ymin = ymin + (j * tile_yw);
+                    tile_ymax = tile_ymin + tile_yw;
 
-                xmldict = createConfig(tile_xmin, tile_xmax, tile_ymin, tile_ymax, i, j, dbname, xmlpath, xmldict);
+                    System.out.print("(" + Double.toString(tile_xmin) + ", " + Double.toString(tile_ymin) + ")");
+                    System.out.println("\t(" + Double.toString(tile_xmax) + ", " + Double.toString(tile_ymax) + ")");
 
-                String is = Integer.toString(i);
-                String js = Integer.toString(j);
-                String txmin = Double.toString(tile_xmin);
-                String txmax = Double.toString(tile_xmax);
-                String tymin = Double.toString(tile_ymin);
-                String tymax = Double.toString(tile_ymax);
-                String key = is + "," + js;
-                String val = txmin + "," + tymin + "," + txmax + "," + tymax;
-                tiledict.put(key, val);
+                    xmldict = createConfig(tile_xmin, tile_xmax, tile_ymin, tile_ymax, i, j, xmldict);
 
+                    String is = Integer.toString(i);
+                    String js = Integer.toString(j);
+                    String txmin = Double.toString(tile_xmin);
+                    String txmax = Double.toString(tile_xmax);
+                    String tymin = Double.toString(tile_ymin);
+                    String tymax = Double.toString(tile_ymax);
+                    String key = is + "," + js;
+                    String val = txmin + "," + tymin + "," + txmax + "," + tymax;
+
+                    tiledict.put(key, val);
+
+                }
+                System.out.println();
             }
-            System.out.println();
+        }catch (JSONException e) {
+            e.printStackTrace();
         }
-        for(Map.Entry<String, String> e : xmldict.entrySet())
-        {
-            String k = e.getKey();
-            export(k, e.getValue(), citydbpath, outputpath);
-
-        }
-
-
+        return tiledict;
     }
 
-    private static Map<String,String> createConfig(double tile_xmin, double tile_xmax, double tile_ymin, double tile_ymax, int i, int j, String dbname, String xmlpath, Map<String, String> xmldict) {
-        String filepath ="./src/configTemplate.xml";
+    private static Map<String,String> createConfig(double tile_xmin, double tile_xmax, double tile_ymin, double tile_ymax, int i, int j, Map<String, String> xmldict) {
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+        System.out.println("Current path: " + path);
+        String filepath = path + "\\resources\\configTemplate.xml";
         String content = "";
-        String key = dbname+"_"+Integer.toString(i)+"_"+Integer.toString(j);
+        String key = DBNAME+"_"+Integer.toString(i)+"_"+Integer.toString(j);
         String newfile = key+".xml";
-        String newpath = xmlpath + "\\" + newfile;
+        String newpath = XMLPATH + "\\" + newfile;
+        new File(XMLPATH).mkdirs();
         try
         {
             content = new String ( Files.readAllBytes( Paths.get(filepath) ) );
-            content = content.replace("DBNAME", dbname);
+            content = content.replace("DBNAME", DBNAME);
             content = content.replace("XMIN", Double.toString(tile_xmin));
             content = content.replace("XMAX", Double.toString(tile_xmax));
             content = content.replace("YMIN", Double.toString(tile_ymin));
@@ -129,11 +149,11 @@ public class TileExporter {
 
     }
 
-    private static void export(String gml, String xmlpath, String citydbpath, String outputpath){
-        String cmd = "java -jar \""+citydbpath+"3dcitydb-impexp.jar \" -shell -config \"" + xmlpath + "\" -export \"" + outputpath+"\\"+gml+ ".gml\"";
+    private static void export(String gml, String xml){
+        String cmd = "java -jar \""+CITYDBPATH+"\\3dcitydb-impexp.jar \" -shell -config \"" + xml + "\" -export \"" + OUTPUTPATH+"\\"+gml+ ".gml\"";
         ProcessBuilder pb = new ProcessBuilder("cmd", "/c", cmd);
         System.out.println(cmd);
-        //File dir = new File(citydbpath);
+        //File dir = new File(CITYDBPATH);
         //pb.directory(dir);
         Process p = null;
         try {
@@ -144,12 +164,12 @@ public class TileExporter {
 
     }
 
-    private static String[] getExtents(Statement stmt, Connection conn, String dbname) {
-        String DBNAME = dbname;
+    private static String[] getExtents(Statement stmt, Connection conn) {
+
         String extentsStr = "";
         String[] extents = new String[4];
         try {
-            //Class.forName("org.postgresql.Driver");
+            Class.forName("org.postgresql.Driver");
 
             conn = DriverManager.getConnection(DB_URL + DBNAME, USER, PASS);
             stmt = conn.createStatement();
@@ -189,8 +209,10 @@ public class TileExporter {
             System.err.println("SQLException: " + ex.getMessage());
             System.err.println("SQLState: " + ex.getSQLState());
             System.err.println("VendorError: " + ex.getErrorCode());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        
+
         return extents;
     }
 
