@@ -111,6 +111,7 @@ public class TileExporter {
         try
         {
             content = new String ( Files.readAllBytes( Paths.get(filepath) ) );
+            content = content.replace("DBNAME", dbname);
             content = content.replace("XMIN", Double.toString(tile_xmin));
             content = content.replace("XMAX", Double.toString(tile_xmax));
             content = content.replace("YMIN", Double.toString(tile_ymin));

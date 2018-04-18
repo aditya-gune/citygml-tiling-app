@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5761c62-3a1c-4878-8dbd-abe9ca19a7a1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TileExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TileExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/configTemplate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/configTemplate.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TileExporter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TileExporter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TileExporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-420">
-              <caret line="79" column="96" selection-start-line="79" selection-start-column="96" selection-end-line="79" selection-end-column="96" />
+            <state relative-caret-position="158">
+              <caret line="113" column="54" selection-start-line="113" selection-start-column="54" selection-end-line="113" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1385#1401#0" expanded="true" />
@@ -28,10 +30,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBCreator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DBCreator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DBCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2244">
+            <state relative-caret-position="-2630">
               <caret line="22" column="51" lean-forward="true" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
             </state>
           </provider>
@@ -152,12 +154,12 @@
       <updated>1523837036625</updated>
       <workItem from="1523837040080" duration="3174000" />
       <workItem from="1523898396616" duration="5577000" />
-      <workItem from="1523974525334" duration="20500000" />
+      <workItem from="1523974525334" duration="21111000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29251000" />
+    <option name="totallyTimeSpent" value="29862000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
@@ -268,22 +270,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/DBCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2630">
+          <caret line="22" column="51" lean-forward="true" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/TileExporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-420">
-          <caret line="79" column="96" selection-start-line="79" selection-start-column="96" selection-end-line="79" selection-end-column="96" />
+        <state relative-caret-position="158">
+          <caret line="113" column="54" selection-start-line="113" selection-start-column="54" selection-end-line="113" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1385#1401#0" expanded="true" />
             <element signature="e#1454#1470#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DBCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2244">
-          <caret line="22" column="51" lean-forward="true" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
         </state>
       </provider>
     </entry>

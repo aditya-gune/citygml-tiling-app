@@ -9,35 +9,15 @@
             </referenceSystem>
         </referenceSystems>
         <connections>
-            <connection id="UUID_507ab7bd-aaaf-443f-8cfb-3a866419bddd" initialSize="0">
-                <description>Delft</description>
-                <type>PostGIS</type>
-                <server>localhost</server>
-                <port>5432</port>
-                <sid>manhattan73</sid>
-                <user>postgres</user>
-                <password>pass</password>
-                <savePassword>true</savePassword>
-            </connection>
             <connection id="UUID_5b5d40d7-e01e-4fe8-912a-ae528a73937a" initialSize="0">
                 <description>Manhattan73</description>
                 <type>PostGIS</type>
                 <server>localhost</server>
                 <port>5432</port>
-                <sid>manhattan</sid>
+                <sid>DBNAME</sid>
                 <user>postgres</user>
                 <password>pass</password>
                 <savePassword>true</savePassword>
-            </connection>
-            <connection id="UUID_94984eea-2ac9-450d-a8df-bcab07bd570a" initialSize="0">
-                <description>New connection</description>
-                <type>Oracle</type>
-                <server></server>
-                <port>1521</port>
-                <sid></sid>
-                <user></user>
-                <password></password>
-                <savePassword>false</savePassword>
             </connection>
         </connections>
         <activeConnection>UUID_5b5d40d7-e01e-4fe8-912a-ae528a73937a</activeConnection>
