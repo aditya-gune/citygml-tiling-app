@@ -1,9 +1,13 @@
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+//import org.json.*;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
 
 class Point{
     private double x;
@@ -32,12 +36,17 @@ public class TileExporter {
             System.out.println("java -jar /citygml-tiling-app.jar \"path/to/gml\" \"path/to/createdb.bat\"");
             return;
         }*/
+        String dbname = "nyc";
+        String citydbpath = "D:\\Program Files\\3DCityDB-Importer-Exporter\\lib\\";
+        String outputpath = "D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\gml";
+        String xmlpath = "D:\\Aditya\\Desktop\\School\\OSU\\MS\\Research\\test\\xml";
         int n = 2;
         int m = n;
-
+        Map<String, String> tiledict = new HashMap<String, String>();
+        Map<String, String> xmldict = new HashMap<String, String>();
         Connection conn = null;
         Statement stmt = null;
-        String[] ext = getExtents(stmt,conn, "nyc");
+        String[] ext = getExtents(stmt,conn, dbname);
         double[] extents = new double[4];
 
         for(int i = 0; i < ext.length; i++){
@@ -62,22 +71,41 @@ public class TileExporter {
                 tile_xmax = tile_xmin + tile_xw;
                 tile_ymin = ymin + (j*tile_yw);
                 tile_ymax = tile_ymin + tile_yw;
+
                 System.out.print("("+ Double.toString(tile_xmin)+ ", "+ Double.toString(tile_ymin)+ ")");
                 System.out.println("\t("+ Double.toString(tile_xmax)+ ", "+ Double.toString(tile_ymax)+ ")");
-                createConfig(tile_xmin, tile_xmax, tile_ymin, tile_ymax, i, j);
+
+                xmldict = createConfig(tile_xmin, tile_xmax, tile_ymin, tile_ymax, i, j, xmlpath, xmldict);
+
+                String is = Integer.toString(i);
+                String js = Integer.toString(j);
+                String txmin = Double.toString(tile_xmin);
+                String txmax = Double.toString(tile_xmax);
+                String tymin = Double.toString(tile_ymin);
+                String tymax = Double.toString(tile_ymax);
+                String key = is + "," + js;
+                String val = txmin + "," + tymin + "," + txmax + "," + tymax;
+                tiledict.put(key, val);
 
             }
             System.out.println();
         }
+        for(Map.Entry<String, String> e : xmldict.entrySet())
+        {
+            String k = dbname + "_" + e.getKey().replace(",","_");
+            export(k, xmlpath, citydbpath, outputpath);
 
+        }
 
 
     }
 
-    private static void createConfig(double tile_xmin, double tile_xmax, double tile_ymin, double tile_ymax, int i, int j) {
+    private static Map<String,String> createConfig(double tile_xmin, double tile_xmax, double tile_ymin, double tile_ymax, int i, int j, String xmlpath, Map<String, String> xmldict) {
         String filepath ="./src/configTemplate.xml";
         String content = "";
-        String newfile = "./src/nyc_"+Integer.toString(i)+"_"+Integer.toString(j)+".xml";
+        String key = "nyc_"+Integer.toString(i)+"_"+Integer.toString(j);
+        String newfile = key+".xml";
+        String newpath = xmlpath + "\\" + newfile;
         try
         {
             content = new String ( Files.readAllBytes( Paths.get(filepath) ) );
@@ -85,21 +113,31 @@ public class TileExporter {
             content = content.replace("XMAX", Double.toString(tile_xmax));
             content = content.replace("YMIN", Double.toString(tile_ymin));
             content = content.replace("YMAX", Double.toString(tile_ymax));
-            PrintWriter out = new PrintWriter(newfile);
+            PrintWriter out = new PrintWriter(newpath);
             out.println(content);
             out.close();
-
+            xmldict.put(key, newpath);
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-
+        return xmldict;
 
     }
 
-    private static void export(double xmin, double xmax, double ymin, double ymax){
-
+    private static void export(String gml, String xmlpath, String citydbpath, String outputpath){
+        String cmd = "java -jar \""+citydbpath+"3dcitydb-impexp.jar \" -shell -config \"" + xmlpath + "\" -export \"" + outputpath+"\\"+gml+ ".gml\"";
+        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", cmd);
+        System.out.println(cmd);
+        //File dir = new File(citydbpath);
+        //pb.directory(dir);
+        Process p = null;
+        try {
+            p = pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
