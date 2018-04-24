@@ -1,11 +1,8 @@
-import com.sun.deploy.util.ArrayUtil;
-import org.h2.util.StringUtils;
-
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.io.*;
 import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class DBCreator {
 
@@ -65,7 +62,7 @@ public class DBCreator {
                 System.out.println("CityDB version " + version);
             }
 
-            if(!StringUtils.isNullOrEmpty(version)){
+            if(!StringUtils.isNoneEmpty(version)){
                 System.out.println("Database " + dbname + "OK!");
             } else {
                 ArrayUtils.add(errors, dbname);
@@ -132,7 +129,7 @@ public class DBCreator {
             Thread.sleep(3000);
 
                 while(!done){
-                    if(!StringUtils.isNullOrEmpty(postgis)){
+                    if(!StringUtils.isNoneEmpty(postgis)){
                         done = true;
                         applyCityDBSchema(batpath, dbname);
                     }
