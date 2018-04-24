@@ -158,7 +158,10 @@ public class TileExporter {
         Process p = null;
         try {
             p = pb.start();
+            p.waitFor();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
