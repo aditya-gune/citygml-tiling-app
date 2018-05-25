@@ -61,6 +61,7 @@ public class TileExporter {
 
 
         try(FileWriter file = new FileWriter(jsonfile)){
+            file.write("\"key_x, key_y\": \"tile_xmin, tile_ymin, tile_xmax, tile_ymax\"");
             file.write(tiledict.toString());
             System.out.println("Wrote tile dictionary to: " + jsonfile);
         }
